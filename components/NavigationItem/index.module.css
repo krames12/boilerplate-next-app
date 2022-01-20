@@ -3,3 +3,19 @@
   align-items: center;
   padding: 1rem 0;
 }
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.nav-item-content {
+  overflow-x: hidden;
+  width: 100%;
+  transition: width 0.2s ease-in-out;
+}
+
+.collapsed {
+  width: 0%;
+}

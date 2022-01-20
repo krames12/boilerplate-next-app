@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Navigation from "@/components/Navigation/Navigation"
+import Navigation from "../components/Navigation/Navigation"
 
 import styles from '../pages/index.module.scss'
 

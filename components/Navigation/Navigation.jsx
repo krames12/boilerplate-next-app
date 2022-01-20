@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { BiGhost, BiHomeAlt } from "react-icons/bi";
-import { BsArrowLeftSquare, BsArrowRightSquare } from "react-icons/bs"
+import { BiGhost, BiHomeAlt, BiGridAlt, BiEnvelopeOpen, BiCalendarCheck } from "react-icons/bi";
+import { BsArrowLeftSquare, BsArrowRightSquare, BsPieChart } from "react-icons/bs"
 import NavigationItem from "../NavigationItem/NavigationItem";
 
 import styles from "./index.module.css";
@@ -13,9 +13,14 @@ const Navigation = () => {
   }
 
   return (
-    <nav className={styles.navigation}>
+    <nav className={`${styles.navigation} ${!isExpanded ? `${styles.collapsed}` : ""}`}>
       <div className={styles["nav-heading"]} >
-          <BiGhost className={styles.icon} /> {isExpanded ? "Ghostlify" : null}
+          <BiGhost className={styles.icon} />
+          <span
+            className={`${styles["logo-content"]} ${ !isExpanded ? `${styles["logo-content-collapsed"]}` : ""}`}
+          >
+            Ghostify
+          </span>
         {isExpanded ?
           <BsArrowLeftSquare className={`${styles["nav-arrow"]} ${styles.icon}`} onClick={handleExpandNavClick} /> :
           <BsArrowRightSquare className={`${styles["nav-arrow"]} ${styles.icon}`} onClick={handleExpandNavClick} />
@@ -23,23 +28,39 @@ const Navigation = () => {
       </div>
       <ul className={styles["nav-menu-listing"]}>
         <li className={styles["nav-menu-item"]}>
-          <BiHomeAlt className={styles.icon} />
-          { isExpanded ?
-            <span>Home</span> :
-            null
-          }
+          <NavigationItem
+            isExpanded={isExpanded}
+            content="Dashboard"
+            Icon={BiHomeAlt}
+          />
         </li>
         <li className={styles["nav-menu-item"]}>
           <NavigationItem
             isExpanded={isExpanded}
             content="Dashboard"
-            Icon={<BiHomeAlt className={styles.icon} />}
+            Icon={BiGridAlt}
           />
-          <BiHomeAlt className={styles.icon} />
-          { isExpanded ?
-            <span>Dashboard</span> :
-            null
-          }
+        </li>
+        <li className={styles["nav-menu-item"]}>
+          <NavigationItem
+            isExpanded={isExpanded}
+            content="Products"
+            Icon={BsPieChart}
+          />
+        </li>
+        <li className={styles["nav-menu-item"]}>
+          <NavigationItem
+            isExpanded={isExpanded}
+            content="Messages"
+            Icon={BiEnvelopeOpen}
+          />
+        </li>
+        <li className={styles["nav-menu-item"]}>
+          <NavigationItem
+            isExpanded={isExpanded}
+            content="Calendar"
+            Icon={BiCalendarCheck}
+          />
         </li>
       </ul>
     </nav>
