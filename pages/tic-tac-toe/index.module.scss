@@ -1,0 +1,25 @@
+$playstation-pink: #f284a7;
+$playstation-blue: #4585c0;
+
+.container {
+  background-color: #2f3238;
+  color: #E3E3EB;
+  height: 100vh;
+}
+
+.player1 {
+  color: $playstation-pink;
+}
+
+.player2 {
+  color: $playstation-blue;
+}
+
+.turn-indicator {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+.game-board {
+  margin: 1rem;
+}
