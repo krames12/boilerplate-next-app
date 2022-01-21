@@ -3,7 +3,7 @@ import { BiGhost, BiHomeAlt, BiGridAlt, BiEnvelopeOpen, BiCalendarCheck } from "
 import { BsArrowLeftSquare, BsArrowRightSquare, BsPieChart } from "react-icons/bs"
 import NavigationItem from "../NavigationItem/NavigationItem";
 
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 
 const Navigation = () => {
   const [isExpanded, setIsExpanded] = useState(true);
