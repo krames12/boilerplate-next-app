@@ -27,41 +27,32 @@ const Navigation = () => {
         }
       </div>
       <ul className={styles["nav-menu-listing"]}>
-        <li className={styles["nav-menu-item"]}>
-          <NavigationItem
-            isExpanded={isExpanded}
-            content="Dashboard"
-            Icon={BiHomeAlt}
-          />
-        </li>
-        <li className={styles["nav-menu-item"]}>
-          <NavigationItem
-            isExpanded={isExpanded}
-            content="Dashboard"
-            Icon={BiGridAlt}
-          />
-        </li>
-        <li className={styles["nav-menu-item"]}>
-          <NavigationItem
-            isExpanded={isExpanded}
-            content="Products"
-            Icon={BsPieChart}
-          />
-        </li>
-        <li className={styles["nav-menu-item"]}>
-          <NavigationItem
-            isExpanded={isExpanded}
-            content="Messages"
-            Icon={BiEnvelopeOpen}
-          />
-        </li>
-        <li className={styles["nav-menu-item"]}>
-          <NavigationItem
-            isExpanded={isExpanded}
-            content="Calendar"
-            Icon={BiCalendarCheck}
-          />
-        </li>
+        <NavigationItem
+          isExpanded={isExpanded}
+          content="Dashboard"
+          Icon={BiHomeAlt}
+        />
+        <NavigationItem
+          isExpanded={isExpanded}
+          content="Dashboard"
+          Icon={BiGridAlt}
+          isCurrentPage={true}
+        />
+        <NavigationItem
+          isExpanded={isExpanded}
+          content="Products"
+          Icon={BsPieChart}
+        />
+        <NavigationItem
+          isExpanded={isExpanded}
+          content="Messages"
+          Icon={BiEnvelopeOpen}
+        />
+        <NavigationItem
+          isExpanded={isExpanded}
+          content="Calendar"
+          Icon={BiCalendarCheck}
+        />
       </ul>
     </nav>
   )
