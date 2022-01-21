@@ -3,6 +3,13 @@
   align-items: center;
   padding: 1rem 0;
   width: 100%;
+  font-weight: semi-bold;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-menu-item:hover {
+  color: #D1B7F1;
+  cursor: pointer;
 }
 
 .icon {
@@ -22,5 +29,10 @@
 }
 
 .current-page {
+  color: #3C2E5F;
   border-right: 4px solid #3C2E5F;
+}
+
+.current-page:hover {
+  color: #3C2E5F;
 }

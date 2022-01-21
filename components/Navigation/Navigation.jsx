@@ -29,7 +29,7 @@ const Navigation = () => {
       <ul className={styles["nav-menu-listing"]}>
         <NavigationItem
           isExpanded={isExpanded}
-          content="Dashboard"
+          content="Home"
           Icon={BiHomeAlt}
         />
         <NavigationItem
