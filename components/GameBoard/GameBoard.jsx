@@ -3,31 +3,62 @@ import GameBoardTile from "../GameBoardTile/GameBoardTile";
 
 import styles from './index.module.scss'
 
-const GameBoard = ({currentPlayer, handlePlayerChange}) => {
-  const [gameBoardStatus, setGameBoardStatus] = useState(
-    [
-      [null, 1, null],
-      [null, 2, null],
-      [null, null, null],
-    ]
-  );
+const GameBoard = () => {
+  const initialGameBoardStatus = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ]
+
+  const [currentPlayer, setCurrentPlayer] = useState(1)
+  const [gameBoardStatus, setGameBoardStatus] = useState(initialGameBoardStatus);
+
+  const handlePlayerChange = () => {
+    const nextPlayer = currentPlayer == 1 ? 2 : 1;
+
+    setCurrentPlayer(nextPlayer);
+  }
 
   const handleTurnCompletion = (row, tile) => {
-    handlePlayerChange();
+    if(gameBoardStatus[row][tile] == null) {
+      updateSelectedTile(row, tile);
+      handlePlayerChange();
+    }
+  }
+
+  const updateSelectedTile = (row, tile) => {
+    const updatedGameBoardStatus = gameBoardStatus.map(
+      (_, rowIndex) => _.map( (currentTileValue, tileIndex ) => {
+        return row == rowIndex && tile == tileIndex ? currentPlayer : currentTileValue;
+      })
+    );
+
+    setGameBoardStatus(updatedGameBoardStatus);
+  }
+
+  const handleReset = () => {
+    setCurrentPlayer(1)
+    setGameBoardStatus(initialGameBoardStatus);
   }
 
   return (
-    <div className={styles["game-board"]}>
-      <GameBoardTile />
-      <GameBoardTile status={2} />
-      <GameBoardTile />
-      <GameBoardTile />
-      <GameBoardTile />
-      <GameBoardTile status={2} />
-      <GameBoardTile />
-      <GameBoardTile status={1} />
-      <GameBoardTile status={2} />
-    </div>
+    <>
+      <p className={styles["turn-indicator"]}>
+        It&apos;s <span className={`${styles[`player${currentPlayer}`]}`}>Player {currentPlayer}&apos;s</span>
+      </p>
+      <div className={styles["game-board"]}>
+        { gameBoardStatus.map( (row, rowIndex) => {
+          return row.map( (tileStatus, tileIndex) =>
+            <GameBoardTile
+              key={`${rowIndex}${tileIndex}`}
+              status={{ tileStatus, rowIndex, tileIndex }}
+              actionHandler={handleTurnCompletion}
+            />
+          )
+        }) }
+      </div>
+      <button onClick={handleReset}>Restart Game</button>
+    </>
   )
 }
 

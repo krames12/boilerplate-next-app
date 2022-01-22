@@ -1,3 +1,6 @@
+$playstation-pink: #f284a7;
+$playstation-blue: #4585c0;
+
 .game-board {
   margin: 1rem;
   width: 320px;
@@ -7,4 +10,17 @@
   column-gap: 4px;
   row-gap: 4px;
   background-color: #E3E3EB;
+}
+
+.player1 {
+  color: $playstation-pink;
+}
+
+.player2 {
+  color: $playstation-blue;
+}
+
+.turn-indicator {
+  font-size: 2rem;
+  margin: 1rem 0;
 }
