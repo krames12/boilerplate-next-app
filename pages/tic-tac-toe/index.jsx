@@ -1,11 +1,21 @@
 import { useState } from 'react';
 import Head from 'next/head'
-import Image from 'next/image'
+import GameBoard from '../../components/GameBoard/GameBoard';
 
 import styles from './index.module.scss'
 
 export default function TicTacToe() {
-  const [currentPlayer, setCurrentPlayer] = useState("player1")
+  const [currentPlayer, setCurrentPlayer] = useState(2)
+
+  const handlePlayerChange = () => {
+    const nextPlayer = currentPlayer == 1 ? 2 : 1;
+
+    setCurrentPlayer(nextPlayer);
+  }
+
+  const handleReset = () => {
+    setCurrentPlayer(1)
+  }
 
   return (
     <div className={styles.container}>
@@ -20,11 +30,12 @@ export default function TicTacToe() {
         </h1>
 
         <p className={styles["turn-indicator"]}>
-          It&apos;s <span className={`${styles[currentPlayer]}`}>Player 1&apos;s</span>
+          It&apos;s <span className={`${styles[`player${currentPlayer}`]}`}>Player {currentPlayer}&apos;s</span>
         </p>
 
-        <div className={styles["game-board"]}>
-        </div>
+        <GameBoard {...{currentPlayer, handlePlayerChange}} />
+
+        <button onClick={handleReset}>Restart Game</button>
       </main>
     </div>
   )

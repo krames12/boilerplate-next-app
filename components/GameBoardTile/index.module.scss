@@ -1,0 +1,21 @@
+.game-tile {
+  height: 100px;
+  width: 100px;
+  border: 1px solid #E3E3EB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tile-icon {
+  width: 75%;
+  height: 75%;
+}
+
+.cross {
+  color: #4585c0;
+}
+
+.circle {
+  color: #f284a7;
+}
