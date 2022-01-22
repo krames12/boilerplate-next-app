@@ -18,19 +18,15 @@ const GameBoard = ({currentPlayer, handlePlayerChange}) => {
 
   return (
     <div className={styles["game-board"]}>
-      <table>
-        <tr>
-          <td className={styles["game-tile"]}>
-            <GameBoardTile />
-          </td>
-          <td className={styles["game-tile"]}>
-            <GameBoardTile status={1} />
-          </td>
-          <td className={styles["game-tile"]}>
-          <GameBoardTile status={2} />
-          </td>
-        </tr>
-      </table>
+      <GameBoardTile />
+      <GameBoardTile status={1} />
+      <GameBoardTile status={2} />
+      <GameBoardTile />
+      <GameBoardTile status={1} />
+      <GameBoardTile status={2} />
+      <GameBoardTile />
+      <GameBoardTile status={1} />
+      <GameBoardTile status={2} />
     </div>
   )
 }
