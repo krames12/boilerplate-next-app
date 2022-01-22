@@ -19,10 +19,10 @@ const GameBoard = ({currentPlayer, handlePlayerChange}) => {
   return (
     <div className={styles["game-board"]}>
       <GameBoardTile />
-      <GameBoardTile status={1} />
       <GameBoardTile status={2} />
       <GameBoardTile />
-      <GameBoardTile status={1} />
+      <GameBoardTile />
+      <GameBoardTile />
       <GameBoardTile status={2} />
       <GameBoardTile />
       <GameBoardTile status={1} />
