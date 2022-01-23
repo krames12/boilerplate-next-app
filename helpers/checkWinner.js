@@ -1,9 +1,3 @@
-export const checkWinner = gameBoardStatus => {
-
-
-  return false;
-};
-
 export const checkRowForWinner = row => {
   const checkValue = row[0];
   let isWinner = row.every( value => value === checkValue );
@@ -25,4 +19,35 @@ export const checkColumnsForWinner = gameBoardStatus => {
   }
 
   return isWinner && !!checkValue ? checkValue : false;
+}
+
+export const checkDiagonalsForWinner = gameBoardStatus => {
+  const leftStartDiagonal = {
+    boardStatus: [
+      gameBoardStatus[0][0],
+      gameBoardStatus[1][1],
+      gameBoardStatus[2][2]
+    ],
+    checkValue: gameBoardStatus[0][0]
+  };
+
+  const rightStartDiagonal = {
+    boardStatus: [
+      gameBoardStatus[0][2],
+      gameBoardStatus[1][1],
+      gameBoardStatus[2][0]
+    ],
+    checkValue: gameBoardStatus[0][2]
+  };
+
+  const leftWinner = leftStartDiagonal.boardStatus.every( value => value == leftStartDiagonal.checkValue);
+  const rightWinner = rightStartDiagonal.boardStatus.every( value => value == rightStartDiagonal.checkValue);
+
+  if(leftWinner && !!leftStartDiagonal.checkValue) {
+    return leftStartDiagonal.checkValue
+  } else if(rightWinner && !!rightStartDiagonal.checkValue) {
+    return rightStartDiagonal.checkValue
+  } else {
+    return false;
+  }
 }

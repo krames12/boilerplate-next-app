@@ -1,4 +1,4 @@
-import { checkColumnsForWinner, checkRowForWinner, checkWinner } from "../checkWinner";
+import { checkColumnsForWinner, checkDiagonalsForWinner, checkRowForWinner, checkWinner } from "../checkWinner";
 
 describe("checkRowForWinner", () => {
   it("should return false if no winner", () => {
@@ -25,7 +25,6 @@ describe("checkColumnsForWinner", () => {
     ];
 
     const isThereAWinner = checkColumnsForWinner(gameBoardStatus);
-    console.log(isThereAWinner);
 
     expect(isThereAWinner).toBeFalsy();
   });
@@ -51,29 +50,17 @@ describe("checkColumnsForWinner", () => {
   });
 });
 
-describe("checkWinner", () => {
-  it("should declare winner for a row match", () => {
+describe("checkDiagonalsForWinner", () => {
+  it("should not declare winner if no diagonal match", () => {
     const gameBoardStatus = [
-      [1, 1, 1],
+      [null, null, null],
       [null, null, null],
       [null, null, null],
     ];
 
-    const gameWinner = checkWinner(gameBoardStatus);
+    const isThereAWinner = checkDiagonalsForWinner(gameBoardStatus);
 
-    expect(gameWinner).toEqual(1);
-  });
-
-  it("should declare winner for a column match", () => {
-    const gameBoardStatus = [
-      [2, 1, null],
-      [2, null, 1],
-      [2, null, 1],
-    ];
-
-    const gameWinner = checkWinner(gameBoardStatus);
-
-    expect(gameWinner).toEqual(2);
+    expect(isThereAWinner).toBeFalsy();
   });
 
   it("should declare winner for a diagonal match", () => {
@@ -82,5 +69,17 @@ describe("checkWinner", () => {
       [null, 2, 1],
       [2, 1, null],
     ];
+
+    const forwardSlashBoard = [
+      [1, null, 2],
+      [null, 1, 1],
+      [null, 1, 1],
+    ];
+
+    const playerOneWin = checkDiagonalsForWinner(forwardSlashBoard);
+    const playerTwoWin = checkDiagonalsForWinner(backSlashBoard);
+
+    expect(playerOneWin).toEqual(1);
+    expect(playerTwoWin).toEqual(2);
   });
 });
