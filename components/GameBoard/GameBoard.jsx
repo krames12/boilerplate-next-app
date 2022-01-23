@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  checkRowForWinner,
+  checkColumnsForWinner,
+  checkDiagonalsForWinner
+} from "../../helpers/checkWinner";
 import GameBoardTile from "../GameBoardTile/GameBoardTile";
 
 import styles from './index.module.scss'
@@ -40,6 +45,24 @@ const GameBoard = () => {
     setCurrentPlayer(1)
     setGameBoardStatus(initialGameBoardStatus);
   }
+
+  const checkGameBoardForWinner = () => {
+    let isWinner = null;
+
+    gameBoardStatus.forEach( row => {
+      isWinner = isWinner == null ? checkRowForWinner(row) : isWinner;
+    });
+
+    isWinner = isWinner == null ? checkColumnsForWinner(gameBoardStatus) : isWinner;
+    isWinner = isWinner == null ? checkDiagonalsForWinner(gameBoardStatus) : isWinner;
+
+    return isWinner;
+  }
+
+  useEffect(() => {
+    const isThereAWinner = checkGameBoardForWinner(gameBoardStatus);
+    
+  }, [gameBoardStatus])
 
   return (
     <>

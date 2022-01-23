@@ -1,11 +1,13 @@
 export const checkRowForWinner = row => {
+  // console.log("ROW:", row);
   const checkValue = row[0];
   let isWinner = row.every( value => value === checkValue );
 
-  return isWinner && !!checkValue ? checkValue : false;
+  return isWinner && !!checkValue ? checkValue : null;
 }
 
 export const checkColumnsForWinner = gameBoardStatus => {
+  // console.log("COLUMNS:", gameBoardStatus);
   let checkValue = null;
   let isWinner = false;
 
@@ -18,10 +20,11 @@ export const checkColumnsForWinner = gameBoardStatus => {
     }
   }
 
-  return isWinner && !!checkValue ? checkValue : false;
+  return isWinner && !!checkValue ? checkValue : null;
 }
 
 export const checkDiagonalsForWinner = gameBoardStatus => {
+  // console.log("DIAGONAL:",gameBoardStatus);
   const leftStartDiagonal = {
     boardStatus: [
       gameBoardStatus[0][0],
@@ -48,6 +51,6 @@ export const checkDiagonalsForWinner = gameBoardStatus => {
   } else if(rightWinner && !!rightStartDiagonal.checkValue) {
     return rightStartDiagonal.checkValue
   } else {
-    return false;
+    return null;
   }
 }

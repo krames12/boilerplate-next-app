@@ -1,4 +1,4 @@
-import { checkColumnsForWinner, checkDiagonalsForWinner, checkRowForWinner, checkWinner } from "../checkWinner";
+import { checkColumnsForWinner, checkDiagonalsForWinner, checkRowForWinner } from "../checkWinner";
 
 describe("checkRowForWinner", () => {
   it("should return false if no winner", () => {
