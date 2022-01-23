@@ -16,14 +16,14 @@ const GameBoardTile = ({status, actionHandler}) => {
       default:
         return null;
       case 1:
-        return (<FaRegCircle className={`${styles.circle} ${styles["tile-icon"]}`} />)
+        return (<FaRegCircle data-testid="playerOneIcon" className={`${styles.circle} ${styles["tile-icon"]}`} />)
       case 2:
-        return (<BsPlusLg className={`${styles.cross} ${styles["tile-icon"]}`} />)
+        return (<BsPlusLg data-testid="playerTwoIcon" className={`${styles.cross} ${styles["tile-icon"]}`} />)
     }
   }
 
   return (
-    <div className={styles["game-tile"]} onClick={() => actionHandler(rowIndex, tileIndex)}>
+    <div data-testid="game-board-tile" className={styles["game-tile"]} onClick={() => actionHandler(rowIndex, tileIndex)}>
       {getTileIcon()}
     </div>
   )
