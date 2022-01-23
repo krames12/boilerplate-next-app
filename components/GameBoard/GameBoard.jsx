@@ -16,6 +16,7 @@ const GameBoard = () => {
   ]
 
   const [currentPlayer, setCurrentPlayer] = useState(1)
+  const [gameInProgress, setGameInProgress] = useState(true);
   const [gameBoardStatus, setGameBoardStatus] = useState(initialGameBoardStatus);
 
   const handlePlayerChange = () => {
@@ -25,7 +26,7 @@ const GameBoard = () => {
   }
 
   const handleTurnCompletion = (row, tile) => {
-    if(gameBoardStatus[row][tile] == null) {
+    if(gameInProgress && gameBoardStatus[row][tile] == null) {
       updateSelectedTile(row, tile);
       handlePlayerChange();
     }
@@ -44,6 +45,7 @@ const GameBoard = () => {
   const handleReset = () => {
     setCurrentPlayer(1)
     setGameBoardStatus(initialGameBoardStatus);
+    setGameInProgress(true);
   }
 
   const checkGameBoardForWinner = () => {
@@ -59,16 +61,32 @@ const GameBoard = () => {
     return isWinner;
   }
 
+  const gameStatusMessage = () => {
+    return gameInProgress ?
+      (
+        <p className={styles["turn-indicator"]}>
+          It&apos;s <span className={`${styles[`player${currentPlayer}`]}`}>Player {currentPlayer}&apos;s</span> turn
+      </p>
+      ) :
+      (
+        <p className={styles["turn-indicator"]}>
+          🎉 <span className={`${styles[`player${currentPlayer}`]}`}>Player {currentPlayer}</span> has won! 🎉
+        </p>
+      )
+  }
+
   useEffect(() => {
     const isThereAWinner = checkGameBoardForWinner(gameBoardStatus);
-    
+
+    if(isThereAWinner) {
+      setGameInProgress(false);
+      setCurrentPlayer(isThereAWinner);
+    }
   }, [gameBoardStatus])
 
   return (
     <>
-      <p className={styles["turn-indicator"]}>
-        It&apos;s <span className={`${styles[`player${currentPlayer}`]}`}>Player {currentPlayer}&apos;s</span>
-      </p>
+      {gameStatusMessage()}
       <div className={styles["game-board"]}>
         { gameBoardStatus.map( (row, rowIndex) => {
           return row.map( (tileStatus, tileIndex) =>
