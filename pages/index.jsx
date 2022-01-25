@@ -1,9 +1,74 @@
+import { useState } from 'react'
+
 import Head from 'next/head'
 import Image from 'next/image'
 
 import styles from '../pages/index.module.scss'
 
 export default function Home() {
+  const directionArray = ["north", "east", "south", "west"];
+  const emojiArray = {
+    "north": "👆",
+    "east": "👉",
+    "south": "👇",
+    "west": "👈"
+  };
+  const gridConstructorArray = [null, null, null, null, null, null, null, null, null, null];
+
+  const [roombaPosition, setRoombaPosition] = useState([0, 0])
+  const [roombaDirection, setRoombaDirection] = useState(directionArray[0])
+
+  const checkBounds = (position) => position >= 0 && position <= 9;
+
+  const moveForward = () => {
+    // bounds of the room (0-9 both colums and rows)
+
+    let [currentColumn, currentRow] = roombaPosition;
+
+    switch (roombaDirection) {
+      case "north":
+        currentColumn--;
+        break;
+      case "east":
+        currentRow++;
+        break;
+      case "south":
+        currentColumn++;
+        break;
+      case "west":
+        currentRow--;
+        break;
+    }
+
+    if(checkBounds(currentColumn) && checkBounds(currentRow)){
+      console.log("column", checkBounds(currentColumn), "row", checkBounds(currentRow))
+      setRoombaPosition([currentColumn, currentRow])
+    } else {
+      turnRight();
+    }
+    // north and south are going to update the columns
+    // east and west update rows
+  }
+
+  const turnRight = () => {
+    const nextDirectionIndex = directionArray.findIndex( direction => direction == roombaDirection);
+
+    if( nextDirectionIndex + 1 >= directionArray.length ) {
+      setRoombaDirection(directionArray[0]);
+    } else {
+      setRoombaDirection(directionArray[nextDirectionIndex + 1]);
+    }
+
+  }
+
+  /**
+   * State
+   *
+   * current positon of the roomba ✅
+   * which way it's facing
+   * what is forward based on the way it's facing
+   */
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,39 +77,25 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a href="https://vercel.com/new" className={styles.card}>
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <button className={styles.button} onClick={turnRight}>Turn right</button>
+        <button className={styles.button} onClick={moveForward}>Move forward</button>
+        <div className={styles.Grid}>
+          { gridConstructorArray.map( (_, columnIndex) => (
+            <div key={`column-${columnIndex}`} className={styles.Column}>
+              { gridConstructorArray.map( (_, rowIndex) => (
+                <div key={`row-${rowIndex}`} className={styles.Cell}>
+                  { columnIndex == roombaPosition[1]
+                    && rowIndex == roombaPosition[0]
+                    && (
+                      <>
+                        {emojiArray[roombaDirection]}
+                      </>
+                    )
+                  }
+                </div>
+              ))}
+            </div>
+          )) }
         </div>
       </main>
 
